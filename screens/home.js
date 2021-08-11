@@ -5,7 +5,9 @@ import Wishes from "../components/wishes";
 
 const HomeScreen = () => {
   const { colors } = useTheme();
-  return <ScrollView style={{ backgroundColor: colors.background }} />;
+  return (
+    <ScrollView style={{ backgroundColor: colors.background }}></ScrollView>
+  );
 };
 
 export default HomeScreen;
