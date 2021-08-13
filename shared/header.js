@@ -1,24 +1,49 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useTheme, Button } from "react-native-paper";
+import {
+  useTheme,
+  Button,
+  Appbar,
+  TouchableRipple,
+  Toolbar,
+  Switch
+} from "react-native-paper";
+import { PreferencesContext } from "../util/preferences-context";
 
-const Header = ({ title }) => {
+const Header = (props) => {
+  const theme = useTheme();
+
+  const styles = StyleSheet.create({
+    header: {
+      backgroundColor: theme.colors.primary,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 20
+    }
+  });
+
+  const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
   return (
-    <View style={styles.header}>
-      <Text>{title}</Text>
-    </View>
+    <Appbar.Header style={styles.header} theme={theme}>
+      {props.previous ? (
+        <Appbar.BackAction onPress={props.navigation.goBack} />
+      ) : null}
+      <Appbar.Content
+        title={
+          props.options !== undefined ? props.options.headerTitle : props.title
+        }
+        color={theme.dark ? theme.colors.accent : theme.colors.white}
+      />
+      <TouchableRipple>
+        <Switch onValueChange={() => toggleTheme()} value={isThemeDark} />
+      </TouchableRipple>
+    </Appbar.Header>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
 
 export default Header;

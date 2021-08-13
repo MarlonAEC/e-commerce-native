@@ -3,17 +3,13 @@ import { StyleSheet, Text, ScrollView, Button } from "react-native";
 import { useTheme } from "react-native-paper";
 import Wishes from "../components/wishes";
 
-const HomeScreen = ({ navigation }) => {
+const CartScreen = ({ navigation }) => {
   const { colors } = useTheme();
   return (
     <ScrollView>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go Shop"
-        onPress={() => navigation.navigate("ShopScreen")}
-      />
+      <Text>Cart Screen</Text>
     </ScrollView>
   );
 };
 
-export default HomeScreen;
+export default CartScreen;

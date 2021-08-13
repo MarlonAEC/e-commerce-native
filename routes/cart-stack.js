@@ -1,26 +1,29 @@
 import * as React from "react";
-import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AboutScreen from "../screens/about";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import HomeScreen from "../screens/home";
+import ShopScreen from "../screens/shop";
+import ProductsScreen from "../screens/products";
 import Header from "../shared/header";
+import { BottomTabs } from "./bottom-tabs";
+import CartScreen from "../screens/cart";
 
 const Stack = createNativeStackNavigator();
 
-const AboutStack = () => {
+const CartStack = (props) => {
   return (
     <Stack.Navigator
-      initialRouteName="AboutScreen"
+      initialRouteName="HomeScreen"
       headerMode="screen"
       screenOptions={{
         header: (props) => <Header {...props} />
       }}
     >
       <Stack.Screen
-        name="AboutScreen"
-        component={AboutScreen}
+        name="CartScreen"
+        component={CartScreen}
         options={({ route }) => {
-          const routeName = getFocusedRouteNameFromRoute(route) ?? "About";
+          const routeName = getFocusedRouteNameFromRoute(route) ?? "Cart";
           return { headerTitle: routeName };
         }}
       />
@@ -28,4 +31,4 @@ const AboutStack = () => {
   );
 };
 
-export default AboutStack;
+export default CartStack;

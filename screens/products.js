@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const Products = () => {
+const ProductsScreen = () => {
   return (
     <View>
       <Text>Products screen</Text>
@@ -9,4 +9,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsScreen;
