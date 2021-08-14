@@ -5,6 +5,7 @@ import HomeScreen from "../screens/home";
 import ShopScreen from "../screens/shop";
 import ProductsScreen from "../screens/products";
 import Header from "../shared/header";
+import BookScreen from "../screens/book";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +30,15 @@ const HomeStack = (props) => {
         name="ShopScreen"
         component={ShopScreen}
         options={({ route }) => {
-          const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+          const routeName = getFocusedRouteNameFromRoute(route) ?? "Shop";
+          return { headerTitle: routeName };
+        }}
+      />
+      <Stack.Screen
+        name="BookScreen"
+        component={BookScreen}
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? "Book";
           return { headerTitle: routeName };
         }}
       />

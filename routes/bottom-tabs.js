@@ -14,6 +14,7 @@ export const BottomTabs = (props) => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarInactiveTintColor: "rgba(95,0,231, 0.6)",
         tabBarActiveBackgroundColor: theme.dark
           ? theme.colors.accent
           : theme.colors.primary,
@@ -38,7 +39,7 @@ export const BottomTabs = (props) => {
                   ? theme.dark
                     ? theme.colors.white
                     : theme.colors.white
-                  : theme.colors.accent
+                  : "rgba(95,0,231, 0.3)"
               }
               size={size}
             />
@@ -58,7 +59,7 @@ export const BottomTabs = (props) => {
                   ? theme.dark
                     ? theme.colors.white
                     : theme.colors.white
-                  : theme.colors.accent
+                  : "rgba(95,0,231, 0.3)"
               }
               size={size}
             />
@@ -78,7 +79,7 @@ export const BottomTabs = (props) => {
                   ? theme.dark
                     ? theme.colors.white
                     : theme.colors.white
-                  : theme.colors.accent
+                  : "rgba(95,0,231, 0.3)"
               }
               size={size}
             />

@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { Provider as StoreProvider } from "react-redux";
+import configureStore from "./store";
 import rootReducer from "./reducers";
 import {
   NavigationContainer,
@@ -18,16 +19,20 @@ import {
 import merge from "deepmerge";
 import { PreferencesContext } from "./util/preferences-context";
 import { BottomTabs } from "./routes/bottom-tabs";
+import thunk from "redux-thunk";
+
+const store = configureStore();
 
 const MyPaperDefaultTheme = {
   ...PaperDefaultTheme,
   colors: {
     ...PaperDefaultTheme.colors,
     primary: "#5F00E7",
-    backdrop: "#5F00E7",
-    accent: "#F1E3D3",
-    text: "#000",
-    white: "#fff"
+    //backdrop: "#5F00E7",
+    //accent: "#F1E3D3",
+    //text: "#000",
+    white: "#fff",
+    textOverWhite: "#5F00E7"
   }
 };
 
@@ -36,10 +41,11 @@ const MyNavigationDefaultTheme = {
   colors: {
     ...NavigationDefaultTheme,
     primary: "#5F00E7",
-    backdrop: "#FFF",
-    accent: "#F1E3D3",
+    //backdrop: "#FFF",
+    //accent: "#F1E3D3",
     text: "#000",
-    white: "#fff"
+    white: "#fff",
+    textOverWhite: "#5F00E7"
   }
 };
 
@@ -49,8 +55,8 @@ const MyNavigationDarkTheme = {
     ...NavigationDarkTheme,
     primary: "#292929",
     accent: "#BB86FC",
-    text: "#BB86FC",
-    backdrop: "#292929",
+    //text: "#BB86FC",
+    //background: "#292929",
     white: "#FFF"
   }
 };
@@ -62,7 +68,7 @@ const MyPaperDarkTheme = {
     primary: "#BB86FC",
     accent: "#BB86FC",
     text: "#BB86FC",
-    backdrop: "#292929",
+    //background: "#292929",
     white: "#FFF"
   }
 };
@@ -72,8 +78,6 @@ const CombinedDefaultTheme = merge(
   MyNavigationDefaultTheme
 );
 const CombinedDarkTheme = merge(MyPaperDarkTheme, MyNavigationDarkTheme);
-
-const store = createStore(rootReducer);
 
 export default function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);

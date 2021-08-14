@@ -30,7 +30,7 @@ const Header = (props) => {
   const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
   return (
     <Appbar.Header style={styles.header} theme={theme}>
-      {props.previous ? (
+      {props.back ? (
         <Appbar.BackAction onPress={props.navigation.goBack} />
       ) : null}
       <Appbar.Content
