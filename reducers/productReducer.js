@@ -4,7 +4,8 @@ import { createHeader } from "../util/util";
 export const ACTION_TYPES = {
   LOAD_PRODUCT_REQUEST: "product/LOAD_PRODUCT_REQUEST",
   LOAD_PRODUCT_SUCCESS: "product/LOAD_PRODUCT_SUCCESS",
-  LOAD_PRODUCT_ERROR: "product/LOAD_PRODUCT_ERROR"
+  LOAD_PRODUCT_ERROR: "product/LOAD_PRODUCT_ERROR",
+  PRODUCT_CLEAR: "product/PRODUCT_CLEAR"
 };
 
 const initialState = {
@@ -32,6 +33,13 @@ const productReducer = (state = initialState, action) => {
         error: action.payload,
         loading: false
       };
+    case ACTION_TYPES.PRODUCT_CLEAR:
+      console.log("llego aqui");
+      return {
+        ...state,
+        error: null,
+        loading: false
+      };
   }
   return state;
 };
@@ -51,15 +59,22 @@ export const getProducts = (date, filter) => (dispatch) => {
   })
     .then((response) => response.json())
     .then((json_res) => {
-      let books = json_res.results.books.map((item) => {
-        let price = (Math.random() * (100 - 50) + 50).toFixed(2);
-        item.price = price;
-        return item;
-      });
-      dispatch({
-        type: ACTION_TYPES.LOAD_PRODUCT_SUCCESS,
-        payload: books
-      });
+      if (json_res.status === "ERROR") {
+        dispatch({
+          type: ACTION_TYPES.LOAD_PRODUCT_ERROR,
+          payload: "ERROR: " + json_res.errors.toString()
+        });
+      } else {
+        let books = json_res.results.books.map((item) => {
+          let price = (Math.random() * (100 - 50) + 50).toFixed(2);
+          item.price = price;
+          return item;
+        });
+        dispatch({
+          type: ACTION_TYPES.LOAD_PRODUCT_SUCCESS,
+          payload: books
+        });
+      }
     })
     .catch((error) => {
       dispatch({
@@ -67,6 +82,12 @@ export const getProducts = (date, filter) => (dispatch) => {
         payload: error
       });
     });
+};
+
+export const clearState = () => (dispatch) => {
+  dispatch({
+    type: ACTION_TYPES.PRODUCT_CLEAR
+  });
 };
 
 export default productReducer;
