@@ -95,6 +95,7 @@ const BookScreen = ({ route, navigation }) => {
           toggleModal={toggleModal}
           containerStyle={styles.containerStyle}
           book={book}
+          navigation={navigation}
         />
       </Portal>
       <Button

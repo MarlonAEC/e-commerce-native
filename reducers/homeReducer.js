@@ -56,9 +56,14 @@ export const loadSpecialOffer = (offset) => (dispatch) => {
   })
     .then((response) => response.json())
     .then((json_res) => {
+      let books = json_res.results.lists[0].books.map((item) => {
+        let price = (Math.random() * (100 - 50) + 50).toFixed(2);
+        item.price = price;
+        return item;
+      });
       dispatch({
         type: ACTION_TYPES.LOAD_HOME_SUCCESS,
-        payload: json_res.results.lists[0].books
+        payload: books
       });
     })
     .catch((e) => {

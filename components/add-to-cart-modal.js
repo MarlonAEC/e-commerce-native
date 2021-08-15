@@ -1,12 +1,39 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
-import { useTheme, Title, Button, Modal } from "react-native-paper";
+import { StyleSheet, Text, View, ScrollView, Image, Alert } from "react-native";
+import { useTheme, Title, Button, Modal, Banner } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../reducers/cartReducer";
 import Quantity from "./quantity";
+import Toast from "react-native-toast-message";
 
-const AddToCartModal = ({ visible, toggleModal, containerStyle, book }) => {
+const AddToCartModal = ({
+  visible,
+  toggleModal,
+  containerStyle,
+  book,
+  navigation
+}) => {
   const [amount, setAmount] = useState("0");
+  const [bannerVisible, setBannerVisible] = useState(false);
+  const [errorAmount, setErrorAmount] = useState(false);
+
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    if (amount > 0) {
+      dispatch(addProductToCart({ book, amount }));
+
+      toggleModal();
+      Toast.show({
+        text1: "Add Success",
+        text2: "Item added successfully 👋"
+      });
+    } else {
+      setBannerVisible(true);
+    }
+  };
+
   const styles = StyleSheet.create({
     input: {
       height: 40,
@@ -20,6 +47,16 @@ const AddToCartModal = ({ visible, toggleModal, containerStyle, book }) => {
     },
     quantityView: {
       width: "100%"
+    },
+    centered: {
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    texts: {
+      padding: 10
+    },
+    strong: {
+      fontWeight: "bold"
     }
   });
   return (
@@ -28,7 +65,20 @@ const AddToCartModal = ({ visible, toggleModal, containerStyle, book }) => {
       onDismiss={toggleModal}
       contentContainerStyle={containerStyle}
     >
-      <View>
+      <Banner
+        visible={bannerVisible}
+        theme={theme}
+        actions={[
+          {
+            label: "OK",
+            onPress: () => setBannerVisible(false)
+          }
+        ]}
+        icon="alert-box"
+      >
+        Sorry but in order to add to cart you need at least order one book
+      </Banner>
+      <View style={styles.centered}>
         <Title>{book.title}</Title>
         <Image
           source={{ uri: book.book_image }}
@@ -37,14 +87,18 @@ const AddToCartModal = ({ visible, toggleModal, containerStyle, book }) => {
             height: 200
           }}
         />
-        <Text>
+      </View>
+      <View style={styles.centered.texts}>
+        <View style={{ flexDirection: "row" }}>
           <Text style={styles.strong}>Unit Price: </Text>
-          {`$${book.price}`}
-        </Text>
-        <Text>
+          <Text style={{ color: "#B12704" }}>{`$${book.price}`}</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
           <Text style={styles.strong}>Total Price: </Text>
-          {`$${(parseFloat(amount) * parseFloat(book.price)).toFixed(2)}`}
-        </Text>
+          <Text style={{ color: "#B12704" }}>{`$${(
+            parseFloat(amount) * parseFloat(book.price)
+          ).toFixed(2)}`}</Text>
+        </View>
         <View style={styles.quantityView}>
           <Quantity
             style={styles.input}
@@ -54,7 +108,11 @@ const AddToCartModal = ({ visible, toggleModal, containerStyle, book }) => {
             keyboardType="numeric"
           />
         </View>
-        <Button icon="cart-plus" mode="contained" onPress={() => {}}>
+        <Button
+          icon="cart-plus"
+          mode="contained"
+          onPress={() => handleAddToCart()}
+        >
           Add to cart
         </Button>
       </View>

@@ -20,6 +20,7 @@ import merge from "deepmerge";
 import { PreferencesContext } from "./util/preferences-context";
 import { BottomTabs } from "./routes/bottom-tabs";
 import thunk from "redux-thunk";
+import Toast from "react-native-toast-message";
 
 const store = configureStore();
 
@@ -101,6 +102,7 @@ export default function App() {
           <NavigationContainer theme={theme}>
             <BottomTabs />
           </NavigationContainer>
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </PaperProvider>
       </PreferencesContext.Provider>
     </StoreProvider>

@@ -80,7 +80,6 @@ const HomeScreen = ({ navigation }) => {
       <Carousel
         data={specials}
         renderItem={({ item }) => {
-          let price = (Math.random() * (100 - 50) + 50).toFixed(2);
           return (
             <View style={styles.itemContainer}>
               {loadingSpecials && (
@@ -104,16 +103,13 @@ const HomeScreen = ({ navigation }) => {
                     />
                     <Text>{item.description.slice(0, 50) + "..."}</Text>
 
-                    <Text>{"Price: $" + price}</Text>
+                    <Text>{"Price: $" + item.price}</Text>
                     <Text>{"Rank: " + item.rank}</Text>
                     <Card.Actions>
                       <Button
                         onPress={() =>
                           navigation.navigate("BookScreen", {
-                            book: {
-                              ...item,
-                              price
-                            }
+                            book: item
                           })
                         }
                       >
