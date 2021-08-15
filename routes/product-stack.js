@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProductScreen from "../screens/products";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Header from "../shared/header";
+import BookScreen from "../screens/book";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,14 @@ const ProductStack = () => {
         component={ProductScreen}
         options={({ route }) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? "Products";
+          return { headerTitle: routeName };
+        }}
+      />
+      <Stack.Screen
+        name="ProductBookScreen"
+        component={BookScreen}
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? "Book";
           return { headerTitle: routeName };
         }}
       />

@@ -63,7 +63,7 @@ const CartScreen = ({ route, navigation }) => {
     } else {
       if (value === -1 && product.amount > 1)
         dispatch(addProductToCart({ book: product.book, amount: value }));
-      else dispatch(deleteProductFromCart(book.title));
+      else dispatch(deleteProductFromCart(product.book.title));
     }
   };
 

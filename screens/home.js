@@ -75,7 +75,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.titleContainer}>
-        <Title style={styles.title}>Our best sellers</Title>
+        <Title style={styles.title}>Best sellers</Title>
       </View>
       <Carousel
         data={specials}

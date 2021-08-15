@@ -4,15 +4,16 @@ import { useTheme, Title, Button, Portal } from "react-native-paper";
 import moment from "moment";
 import AddToCartModal from "../components/add-to-cart-modal";
 import { useState } from "react";
+import { useEffect } from "react";
 
-const BookScreen = ({ route, navigation }) => {
+const BookScreen = ({ route, navigation, bookInfo }) => {
   const [visibleModal, setVisibleModal] = useState(false);
 
   const toggleModal = () => {
     setVisibleModal(!visibleModal);
   };
   const theme = useTheme();
-  const { book } = route.params;
+  const { book } = bookInfo ? bookInfo : route.params;
   const styles = StyleSheet.create({
     image: {
       flex: 1,
@@ -62,7 +63,7 @@ const BookScreen = ({ route, navigation }) => {
         </Text>
         <Text style={styles.text}>
           <Text style={styles.strong}>Description:</Text>{" "}
-          {`${book.description}`}
+          {`${book.description ? book.description : "No description provided"}`}
         </Text>
         <Text style={styles.price}>
           <Text style={styles.strong}>Price: </Text>
