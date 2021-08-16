@@ -54,9 +54,9 @@ const MyNavigationDarkTheme = {
   ...NavigationDarkTheme,
   colors: {
     ...NavigationDarkTheme,
-    primary: "#292929",
+    primary: "#555",
+    text: "#FFF",
     accent: "#BB86FC",
-    //text: "#BB86FC",
     //background: "#292929",
     white: "#FFF"
   }
@@ -66,9 +66,8 @@ const MyPaperDarkTheme = {
   ...PaperDarkTheme,
   colors: {
     ...PaperDarkTheme.colors,
-    primary: "#BB86FC",
+    primary: "#292929",
     accent: "#BB86FC",
-    text: "#BB86FC",
     //background: "#292929",
     white: "#FFF"
   }

@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, ScrollView, View } from "react-native";
-import { Button, Card, useTheme, Banner } from "react-native-paper";
+import { StyleSheet, ScrollView, View } from "react-native";
+import { Button, Card, useTheme, Banner, Text } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { clearState, getProducts } from "../reducers/productReducer";
@@ -37,7 +37,7 @@ const ProductsScreen = ({ navigation }) => {
   const styles = StyleSheet.create({
     picker: {
       width: "60%",
-      color: theme.colors.primary,
+      color: theme.dark ? theme.colors.accent : theme.colors.primary,
       borderColor: theme.colors.primary,
       margin: 10
     },
@@ -48,6 +48,16 @@ const ProductsScreen = ({ navigation }) => {
     },
     banner: {
       backgroundColor: "#f8d7da"
+    },
+    card: {
+      margin: 10,
+      marginLeft: 20,
+      marginRight: 20,
+      backgroundColor: theme.dark ? theme.colors.primary : theme.colors.surface
+    },
+    textContainer: {},
+    text: {
+      color: theme.dark ? theme.colors.white : theme.colors.primary
     }
   });
   return (
@@ -74,6 +84,7 @@ const ProductsScreen = ({ navigation }) => {
       </Banner>
       <View style={styles.pickerView}>
         <Button
+          color={theme.dark ? theme.colors.accent : theme.colors.primary}
           icon="calendar"
           onPress={() => setShowDatePicker(!showDatePicker)}
         >
@@ -93,7 +104,9 @@ const ProductsScreen = ({ navigation }) => {
           onValueChange={(itemValue) => setSelectedCategory(itemValue)}
           style={styles.picker}
           mode="dropdown"
-          dropdownIconColor={"black"}
+          dropdownIconColor={
+            theme.dark ? theme.colors.accent : theme.colors.primary
+          }
           numberOfLines={1}
         >
           <Picker.Item
@@ -133,17 +146,34 @@ const ProductsScreen = ({ navigation }) => {
                     title={item.title}
                     subtitle={`By ${item.author}`}
                     style={styles.cardTitle}
+                    titleStyle={{
+                      color: theme.dark
+                        ? theme.colors.accent
+                        : theme.colors.primary
+                    }}
+                    subtitleStyle={{
+                      color: theme.dark
+                        ? theme.colors.white
+                        : theme.colors.primary
+                    }}
                   />
                   <Card.Cover
                     style={styles.image}
                     source={{ uri: item.book_image }}
                   />
-                  <Text>{item.description.slice(0, 50) + "..."}</Text>
+                  <Card.Content style={styles.textContainer}>
+                    <Text styles={styles.text}>
+                      {item.description.slice(0, 50) + "..."}
+                    </Text>
 
-                  <Text>{"Price: $" + item.price}</Text>
-                  <Text>{"Rank: " + item.rank}</Text>
+                    <Text>{"Price: $" + item.price}</Text>
+                    <Text>{"Rank: " + item.rank}</Text>
+                  </Card.Content>
                   <Card.Actions>
                     <Button
+                      color={
+                        theme.dark ? theme.colors.accent : theme.colors.primary
+                      }
                       onPress={() =>
                         navigation.navigate("ProductBookScreen", {
                           book: item

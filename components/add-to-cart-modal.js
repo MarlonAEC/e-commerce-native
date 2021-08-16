@@ -57,6 +57,11 @@ const AddToCartModal = ({
     },
     strong: {
       fontWeight: "bold"
+    },
+    containerStyle: {
+      backgroundColor: theme.dark
+        ? theme.colors.primary
+        : theme.colors.background
     }
   });
   return (
@@ -111,9 +116,13 @@ const AddToCartModal = ({
         <Button
           icon="cart-plus"
           mode="contained"
+          color={theme.dark ? theme.colors.accent : theme.colors.primary}
+          labelStyle={{
+            color: theme.colors.white
+          }}
           onPress={() => handleAddToCart()}
         >
-          Add to cart
+          <Text>Add to cart</Text>
         </Button>
       </View>
     </Modal>

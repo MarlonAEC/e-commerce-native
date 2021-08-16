@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
-import { useTheme, Title, Button, Portal } from "react-native-paper";
+import { StyleSheet, View, ScrollView, Image } from "react-native";
+import { useTheme, Text, Title, Button, Portal } from "react-native-paper";
 import moment from "moment";
 import AddToCartModal from "../components/add-to-cart-modal";
 import { useState } from "react";
@@ -19,6 +19,10 @@ const BookScreen = ({ route, navigation, bookInfo }) => {
       flex: 1,
       justifyContent: "center",
       alignItems: "center"
+    },
+    title: {
+      color: theme.dark ? theme.colors.accent : theme.colors.primary,
+      margin: 10
     },
     button: {
       flex: 1,
@@ -42,21 +46,25 @@ const BookScreen = ({ route, navigation, bookInfo }) => {
       backgroundColor: "white",
       margin: 20,
       padding: 20
+    },
+    textView: {
+      margin: 20
     }
   });
   return (
     <ScrollView>
       <View style={styles.image}>
-        <Title>{book.title}</Title>
+        <Title style={styles.title}>{book.title}</Title>
         <Image
           source={{ uri: book.book_image }}
           style={{
             width: book.book_image_width,
-            height: book.book_image_height
+            height: book.book_image_height,
+            marginTop: 20
           }}
         />
       </View>
-      <View>
+      <View style={styles.textView}>
         <Text style={styles.text}>
           <Text style={styles.strong}>Author: </Text>
           {`${book.author}`}
@@ -101,11 +109,15 @@ const BookScreen = ({ route, navigation, bookInfo }) => {
       </Portal>
       <Button
         icon="cart-plus"
+        color={theme.dark ? theme.colors.accent : theme.colors.primary}
+        labelStyle={{
+          color: theme.colors.white
+        }}
         mode="contained"
         style={styles.button}
         onPress={toggleModal}
       >
-        Add to cart
+        <Text style={{ color: "#FFF" }}>Add to cart</Text>
       </Button>
     </ScrollView>
   );

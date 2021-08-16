@@ -31,6 +31,12 @@ export const BottomTabs = (props) => {
         component={HomeStack}
         options={{
           tabBarLabel: "Home",
+          tabBarInactiveBackgroundColor: theme.dark //ok
+            ? theme.colors.primary
+            : theme.colors.background,
+          tabBarInactiveTintColor: theme.dark
+            ? theme.colors.white
+            : theme.colors.disabled,
           tabBarIcon: ({ focused, size }) => (
             <Icon
               name="home"
@@ -39,7 +45,9 @@ export const BottomTabs = (props) => {
                   ? theme.dark
                     ? theme.colors.white
                     : theme.colors.white
-                  : "rgba(95,0,231, 0.3)"
+                  : theme.dark
+                  ? theme.colors.white
+                  : theme.colors.disabled
               }
               size={size}
             />
@@ -51,6 +59,12 @@ export const BottomTabs = (props) => {
         component={ProductStack}
         options={{
           tabBarLabel: "Products",
+          tabBarInactiveBackgroundColor: theme.dark //ok
+            ? theme.colors.primary
+            : theme.colors.background,
+          tabBarInactiveTintColor: theme.dark
+            ? theme.colors.white
+            : theme.colors.disabled,
           tabBarIcon: ({ focused, size }) => (
             <Icon
               name="book"
@@ -59,7 +73,9 @@ export const BottomTabs = (props) => {
                   ? theme.dark
                     ? theme.colors.white
                     : theme.colors.white
-                  : "rgba(95,0,231, 0.3)"
+                  : theme.dark
+                  ? theme.colors.white
+                  : theme.colors.disabled
               }
               size={size}
             />
@@ -71,6 +87,12 @@ export const BottomTabs = (props) => {
         component={CartStack}
         options={{
           tabBarLabel: "Cart",
+          tabBarInactiveTintColor: theme.dark
+            ? theme.colors.white
+            : theme.colors.disabled,
+          tabBarInactiveBackgroundColor: theme.dark //ok
+            ? theme.colors.primary
+            : theme.colors.background,
           tabBarIcon: ({ focused, size }) => (
             <Icon
               name="cart"
@@ -79,7 +101,9 @@ export const BottomTabs = (props) => {
                   ? theme.dark
                     ? theme.colors.white
                     : theme.colors.white
-                  : "rgba(95,0,231, 0.3)"
+                  : theme.dark
+                  ? theme.colors.white
+                  : theme.colors.disabled
               }
               size={size}
             />

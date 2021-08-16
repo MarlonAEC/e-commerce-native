@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import {
   StyleSheet,
-  Text,
   ScrollView,
   Dimensions,
   View,
   Avatar,
   ActivityIndicator
 } from "react-native";
-import { Card, useTheme, Button, Title } from "react-native-paper";
+import { Card, useTheme, Button, Title, Text } from "react-native-paper";
 import Carousel from "react-native-snap-carousel";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loadSpecialOffer } from "../reducers/homeReducer";
 import { scrollInterpolator, animatedStyles } from "../util/animations";
+import CartScreen from "./cart";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
 
   const styles = StyleSheet.create({
     carouselContainer: {
-      marginTop: 50
+      marginTop: 30
     },
     itemContainer: {
       width: ITEM_WIDTH,
@@ -52,7 +52,10 @@ const HomeScreen = ({ navigation }) => {
     },
     card: {
       width: "100%",
-      height: "100%"
+      height: "100%",
+      backgroundColor: theme.dark
+        ? theme.colors.primary
+        : theme.colors.background
     },
     titleContainer: {
       justifyContent: "center",
@@ -61,14 +64,28 @@ const HomeScreen = ({ navigation }) => {
       paddingTop: 12
     },
     cardTitle: {
-      color: theme.dark ? theme.colors.text : theme.colors.textOverWhite
+      color: theme.dark ? theme.colors.accent : theme.colors.textOverWhite
     },
     title: {
       fontSize: 30,
-      color: "rgba(95, 0, 231, 0.5)"
+      color: theme.dark ? theme.colors.white : theme.colors.primary
     },
     image: {
-      height: 160
+      height: 190,
+      marginBottom: 5
+    },
+    textView: {
+      color: "#FFF",
+      paddingBottom: 20
+    },
+    text: {
+      color: "#FFF"
+    },
+    button: {
+      color: "#fff"
+    },
+    subtitle: {
+      color: theme.dark ? "#FFF" : theme.colors.primary
     }
   });
 
@@ -95,18 +112,28 @@ const HomeScreen = ({ navigation }) => {
                     <Card.Title
                       title={item.title}
                       subtitle={`By ${item.author}`}
-                      style={styles.cardTitle}
+                      titleStyle={styles.cardTitle}
+                      subtitleStyle={styles.subtitle}
                     />
                     <Card.Cover
                       style={styles.image}
                       source={{ uri: item.book_image }}
                     />
-                    <Text>{item.description.slice(0, 50) + "..."}</Text>
+                    <Card.Content styles={styles.textView}>
+                      <Text styles={styles.text}>
+                        {item.description.slice(0, 50) + "..."}
+                      </Text>
 
-                    <Text>{"Price: $" + item.price}</Text>
-                    <Text>{"Rank: " + item.rank}</Text>
+                      <Text>{"Price: $" + item.price}</Text>
+                      <Text>{"Rank: " + item.rank}</Text>
+                    </Card.Content>
                     <Card.Actions>
                       <Button
+                        color={
+                          theme.dark
+                            ? theme.colors.accent
+                            : theme.colors.primary
+                        }
                         onPress={() =>
                           navigation.navigate("BookScreen", {
                             book: item

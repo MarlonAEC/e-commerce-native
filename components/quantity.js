@@ -11,6 +11,7 @@ import {
 import { useTheme, Title, Button, Modal } from "react-native-paper";
 
 const Quantity = (props) => {
+  const theme = useTheme();
   const styles = StyleSheet.create({
     container: {
       flexDirection: "row",
@@ -31,6 +32,10 @@ const Quantity = (props) => {
         icon="minus"
         mode="contained"
         style={styles.button}
+        color={theme.dark ? theme.colors.accent : theme.colors.primary}
+        labelStyle={{
+          color: theme.colors.white
+        }}
         onPress={() =>
           props.onChangeText(
             checkNegative(parseInt(props.value) - 1).toString()
@@ -43,6 +48,10 @@ const Quantity = (props) => {
       <Button
         icon="plus"
         mode="contained"
+        color={theme.dark ? theme.colors.accent : theme.colors.primary}
+        labelStyle={{
+          color: theme.colors.white
+        }}
         style={styles.button}
         onPress={() =>
           props.onChangeText((parseInt(props.value) + 1).toString())
